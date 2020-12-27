@@ -12,6 +12,9 @@ import { logout, selectUser } from './features/userSlice';
 import { useDispatch, useSelector } from "react-redux";
 
 function Header() {
+
+    const user = useSelector(selectUser);
+
     const dispatch = useDispatch();
 
     const logoutOfApp = () => {
@@ -29,19 +32,21 @@ function Header() {
                     {/* Search Icon */}
                     <SearchIcon />
                     <input placeholder = 'Search' type="text"></input>
-
                 </div>
             </div>
-
-            <div className = "header__right">
-                <HeaderOption Icon = {HomeIcon} title = "Home" />
-                <HeaderOption Icon = {SupervisorAccountIcon} title = "My Network" />
-                <HeaderOption Icon = {BusinessCenterIcon} title = "Jobs" />
-                <HeaderOption Icon = {ChatIcon} title = "Messaging" />
-                <HeaderOption Icon = {NotificationsIcon} title = "Notifications" />
-                <HeaderOption avatar = {true} title = "Profile" onClick = {logoutOfApp} />
-            </div>
-
+            
+            { !user ? (
+                <div />
+            ) : (
+                <div className = "header__right">
+                    <HeaderOption Icon = {HomeIcon} title = "Home" />
+                    <HeaderOption Icon = {SupervisorAccountIcon} title = "My Network" />
+                    <HeaderOption Icon = {BusinessCenterIcon} title = "Jobs" />
+                    <HeaderOption Icon = {ChatIcon} title = "Messaging" />
+                    <HeaderOption Icon = {NotificationsIcon} title = "Notifications" />
+                    <HeaderOption avatar = {true} title = "Profile" onClick = {logoutOfApp} />
+                </div>
+            )}
         </div>
     )
 }
